@@ -7,8 +7,10 @@ terminal.open(document.getElementById('terminal'));
 terminal.fit();
 terminal.focus();
 
-console.log('Attempting to run metamath');
-terminal.runCommand('metamath');
+setTimeout(() => {
+    console.log('Attempting to run metamath');
+    terminal.runCommand('metamath');
+});
 
 const App: React.FunctionComponent = () => {
     return <div>Hello world</div>;
