@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Metamath Proof Explorer as a single page application",
     "scripts": {
-        "build": "parcel build ./index.html ./wapm_packages/metamath/metamath.wasm ./node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js",
+        "build": "parcel build ./index.html ./wapm_packages/metamath/metamath.wasm ./node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js ./node_modules/xterm/css/xterm.css",
         "clean": "rimraf dist",
         "run": "ts-node express.ts",
         "start": "npm run clean && npm run build && npm run run"
