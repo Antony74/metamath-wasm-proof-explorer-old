@@ -1,12 +1,17 @@
 import WasmTerminal from '@wasmer/wasm-terminal/lib/optimized/wasm-terminal.esm';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface FileSystem {}
+
 interface WasmTerminalInterface {
     open: (element: HTMLElement) => void;
     runCommand: (cmd: string) => void;
+    wasmShell: { wasmTerminalConfig: { wasmFs: { fs: FileSystem } } };
 }
 
 export interface Terminal {
     runCommand: (cmd: string) => void;
+    fs: FileSystem;
 }
 
 export const createTerminal = (element: HTMLElement): Terminal => {
@@ -36,5 +41,6 @@ export const createTerminal = (element: HTMLElement): Terminal => {
         runCommand: (cmd: string) => {
             wasmTerminal.runCommand(cmd);
         },
+        fs: wasmTerminal.wasmShell.wasmTerminalConfig.wasmFs.fs,
     };
 };
