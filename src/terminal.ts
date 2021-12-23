@@ -1,7 +1,16 @@
 import WasmTerminal from '@wasmer/wasm-terminal/lib/optimized/wasm-terminal.esm';
 
-export const createTerminal = () => {
-    const wasmTerminal = new WasmTerminal({
+interface WasmTerminalInterface {
+    open: (element: HTMLElement) => void;
+    runCommand: (cmd: string) => void;
+}
+
+export interface Terminal {
+    runCommand: (cmd: string) => void;
+}
+
+export const createTerminal = (element: HTMLElement): Terminal => {
+    const wasmTerminal: WasmTerminalInterface = new WasmTerminal({
         fetchCommand: async (command: { args: string[] }): Promise<Uint8Array> => {
             const program = command.args[0];
             const url = `./wapm_packages/${program}/${program}.wasm`;
@@ -21,5 +30,11 @@ export const createTerminal = () => {
         processWorkerUrl: './node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js',
     });
 
-    return wasmTerminal;
+    wasmTerminal.open(element);
+
+    return {
+        runCommand: (cmd: string) => {
+            wasmTerminal.runCommand(cmd);
+        },
+    };
 };

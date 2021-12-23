@@ -1,22 +1,18 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { createTerminal } from './terminal';
+import { createTerminal, Terminal } from './terminal';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const supportsSharedArrayBuffer = (window as any).SharedArrayBuffer && (window as any).Atomics;
+const supportsSharedArrayBuffer: boolean = (window as any).SharedArrayBuffer && (window as any).Atomics;
+
+let terminal: Terminal;
 
 if (supportsSharedArrayBuffer) {
-    const terminal = createTerminal();
-    terminal.open(document.getElementById('terminal'));
-    terminal.fit();
-    terminal.focus();
-
-    setTimeout(() => {
-        terminal.runCommand('metamath');
-    });
+    terminal = createTerminal(document.getElementById('terminal'));
+    setTimeout(() => terminal.runCommand('metamath'));
 }
 
-const App: React.FunctionComponent = () => {
+const App = (): JSX.Element => {
     if (supportsSharedArrayBuffer) {
         return <div>Hello world</div>;
     } else {
