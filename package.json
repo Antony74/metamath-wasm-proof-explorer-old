@@ -1,23 +1,32 @@
 {
-  "name": "metamath-wasm-proof-explorer",
-  "version": "1.0.0",
-  "description": "Metamath Proof Explorer as a single page application",
-  "scripts": {
-    "start": "parcel ./index.html ./wapm_packages/metamath/metamath.wasm ./node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Antony74/metamath-wasm-proof-explorer.git"
-  },
-  "author": "Antony74",
-  "license": "MIT",
-  "dependencies": {
-    "@parcel/transformer-raw": "^2.0.1",
-    "@wasmer/wasm-terminal": "^0.12.0",
-    "@wasmer/wasm-transformer": "^0.12.0",
-    "parcel": "^2.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "typescript": "^4.5.4"
-  }
+    "name": "metamath-wasm-proof-explorer",
+    "version": "1.0.0",
+    "description": "Metamath Proof Explorer as a single page application",
+    "scripts": {
+        "build": "parcel build ./index.html ./wapm_packages/metamath/metamath.wasm ./node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js",
+        "clean": "rimraf dist",
+        "run": "ts-node express.ts",
+        "start": "npm run clean && npm run build && npm run run"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Antony74/metamath-wasm-proof-explorer.git"
+    },
+    "author": "Antony74",
+    "license": "MIT",
+    "dependencies": {
+        "@wasmer/wasm-terminal": "^0.12.0",
+        "@wasmer/wasm-transformer": "^0.12.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
+    },
+    "devDependencies": {
+        "@parcel/transformer-raw": "^2.0.1",
+        "@types/express": "^4.17.13",
+        "express": "^4.17.2",
+        "parcel": "^2.0.1",
+        "rimraf": "^3.0.2",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.4"
+    }
 }
