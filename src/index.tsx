@@ -11,7 +11,6 @@ if (supportsSharedArrayBuffer) {
     terminal.focus();
 
     setTimeout(() => {
-        console.log('Attempting to run metamath');
         terminal.runCommand('metamath');
     });
 }
