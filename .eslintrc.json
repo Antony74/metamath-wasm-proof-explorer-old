@@ -1,0 +1,26 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "extends": ["eslint:recommended"],
+    "rules": {
+      "eqeqeq": ["error"],
+      "no-tabs": ["error"]
+    },
+    "overrides": [
+      {
+        "files": ["*.ts*"],
+        "plugins": ["@typescript-eslint"],
+        "extends": [
+          "plugin:@typescript-eslint/eslint-recommended",
+          "plugin:@typescript-eslint/recommended"
+        ],
+        "rules": {
+          "@typescript-eslint/semi": ["error"],
+          "@typescript-eslint/camelcase": ["off"],
+          "@typescript-eslint/no-empty-function": ["off"],
+          "@typescript-eslint/no-shadow": ["error"],
+          "@typescript-eslint/interface-name-prefix": ["off"]
+        }
+      }
+    ]
+  }

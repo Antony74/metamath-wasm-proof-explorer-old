@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { createTerminal } from './terminal';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const supportsSharedArrayBuffer = (window as any).SharedArrayBuffer && (window as any).Atomics;
 
 if (supportsSharedArrayBuffer) {
