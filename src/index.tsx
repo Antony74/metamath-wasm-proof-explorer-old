@@ -2,18 +2,36 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { createTerminal } from './terminal';
 
-const terminal = createTerminal();
-terminal.open(document.getElementById('terminal'));
-terminal.fit();
-terminal.focus();
+const supportsSharedArrayBuffer = (window as any).SharedArrayBuffer && (window as any).Atomics;
 
-setTimeout(() => {
-    console.log('Attempting to run metamath');
-    terminal.runCommand('metamath');
-});
+if (supportsSharedArrayBuffer) {
+    const terminal = createTerminal();
+    terminal.open(document.getElementById('terminal'));
+    terminal.fit();
+    terminal.focus();
+
+    setTimeout(() => {
+        console.log('Attempting to run metamath');
+        terminal.runCommand('metamath');
+    });
+}
 
 const App: React.FunctionComponent = () => {
-    return <div>Hello world</div>;
+    if (supportsSharedArrayBuffer) {
+        return <div>Hello world</div>;
+    } else {
+        return (
+            <div>
+                <p>
+                    SharedArrayBuffer is not available in your browser. The offical metamath proof-explorer can be found
+                    here, and as it is static html it shouldn't give you any such difficulties:
+                </p>
+                <p>
+                    <a href="http://us.metamath.org">http://us.metamath.org</a>
+                </p>
+            </div>
+        );
+    }
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
