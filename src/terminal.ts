@@ -1,5 +1,4 @@
-//import WasmTerminal from '@wasmer/wasm-terminal/lib/optimized/wasm-terminal.esm';
-import WasmTerminal from '@wasmer/wasm-terminal/lib/unoptimized/wasm-terminal.esm';
+import WasmTerminal from '@wasmer/wasm-terminal/lib/optimized/wasm-terminal.esm';
 import { WasmFs } from '@wasmer/wasmfs';
 //import { NoParamCallback, PathOrFileDescriptor } from 'fs';
 
