@@ -1,8 +1,19 @@
-import WasmTerminal from '@wasmer/wasm-terminal/lib/optimized/wasm-terminal.esm';
+//import WasmTerminal from '@wasmer/wasm-terminal/lib/optimized/wasm-terminal.esm';
+import WasmTerminal from '@wasmer/wasm-terminal/lib/unoptimized/wasm-terminal.esm';
+import { WasmFs } from '@wasmer/wasmfs';
+//import { NoParamCallback, PathOrFileDescriptor } from 'fs';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface FileSystem {}
-
+/*
+export interface FileSystem {
+    writeFile: (
+        path: PathOrFileDescriptor,
+        data: string | NodeJS.ArrayBufferView,
+        options: unknown,
+        callback: NoParamCallback,
+    ) => void;
+    writeFileSync: (path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView) => void;
+}
+*/
 interface WasmTerminalInterface {
     open: (element: HTMLElement) => void;
     runCommand: (cmd: string) => void;
@@ -11,10 +22,13 @@ interface WasmTerminalInterface {
 
 export interface Terminal {
     runCommand: (cmd: string) => void;
-    fs: FileSystem;
+    wasmFs: any;
 }
 
 export const createTerminal = (element: HTMLElement): Terminal => {
+
+    const wasmFs = new WasmFs();
+
     const wasmTerminal: WasmTerminalInterface = new WasmTerminal({
         fetchCommand: async (command: { args: string[] }): Promise<Uint8Array> => {
             const program = command.args[0];
@@ -33,6 +47,7 @@ export const createTerminal = (element: HTMLElement): Terminal => {
             }
         },
         processWorkerUrl: './node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js',
+        wasmFs,
     });
 
     wasmTerminal.open(element);
@@ -41,6 +56,6 @@ export const createTerminal = (element: HTMLElement): Terminal => {
         runCommand: (cmd: string) => {
             wasmTerminal.runCommand(cmd);
         },
-        fs: wasmTerminal.wasmShell.wasmTerminalConfig.wasmFs.fs,
+        wasmFs,
     };
 };

@@ -5,9 +5,10 @@
     "scripts": {
         "build": "parcel build ./index.html ./wapm_packages/metamath/metamath.wasm ./node_modules/@wasmer/wasm-terminal/lib/workers/process.worker.js ./node_modules/xterm/css/xterm.css",
         "clean": "rimraf dist",
+        "copy": "cp ./set.mm ./dist/set.mm && cp ./demo0.mm ./dist/demo0.mm",
         "lint": "eslint . --ext .ts --ext .tsx",
         "run": "ts-node express.ts",
-        "start": "npm run clean && npm run build && npm run run"
+        "start": "npm run clean && npm run build && npm run copy && npm run run"
     },
     "repository": {
         "type": "git",
@@ -18,6 +19,7 @@
     "dependencies": {
         "@wasmer/wasm-terminal": "^0.12.0",
         "@wasmer/wasm-transformer": "^0.12.0",
+        "@wasmer/wasmfs": "^0.12.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2"
     },
