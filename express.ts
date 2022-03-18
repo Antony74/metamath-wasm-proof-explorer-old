@@ -13,5 +13,9 @@ app.use(
     }),
 );
 
+app.get('/', function(_req, res){
+    res.redirect('/index.html');
+});
+
 const port = 1234;
 app.listen(port, () => console.log(`Listening on port ${port}`));
